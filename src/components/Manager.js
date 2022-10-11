@@ -24,12 +24,13 @@ class Manager extends Component {
 
   render() {
     return (
-      <div className="w-1/3 h-full bg-gray-200 shadow-lg flex  p-5">
+      <div className="w-2/5 h-full bg-gray-100 shadow-lg p-5 grid grid-cols-2 grid-rows-3">
         <ContactInformation
           handleContactInformation={this.handleContactInformation}
         />
-        <InputPhoto className="w-full h-1/3 flex flex-col p-4" />
-        {/* <EducationInformation className="w-1/2 h-1/3 flex flex-col p-4" /> */}
+        <InputPhoto className="bg-cover" />
+
+        <EducationInformation />
       </div>
     );
   }

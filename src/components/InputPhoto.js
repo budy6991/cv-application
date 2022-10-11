@@ -14,19 +14,33 @@ class InputPhoto extends Component {
     });
   };
 
+  handleEdit = () => {
+    this.setState({
+      file: null,
+    });
+  };
+
   render() {
     if (this.state.file === null || this.state.file === "") {
       return (
-        <div className="w-1/2 h-1/3 flex justify-center items-center m-9 ml-9 p-2 bg-white">
-          <input type="file" onChange={this.handleChange} />
-          <img src={this.state.file} />
+        <div className="p-4 bg-white">
+          <input type="file" id="browsePhoto" onChange={this.handleChange} />
+          <img className="bg-contain" src={this.state.file} />
         </div>
       );
     } else {
       return (
-        <div className="w-1/2 h-1/3 flex justify-center items-center m-9 ml-9 p-2 bg-transparent">
+        <div className="p-4 bg-transparent">
           <input type="file" onChange={this.handleChange} />
           <img src={this.state.file} />
+          <div>
+            <button
+              className="rounded-full bg-white p-1 mt-4 hover:shadow-md hover:bg-blue-600 hover:text-white"
+              onClick={this.handleEdit}
+            >
+              Edit
+            </button>
+          </div>
         </div>
       );
     }
