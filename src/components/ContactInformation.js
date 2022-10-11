@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-export class ContactInformation extends Component {
+class ContactInformation extends Component {
   constructor(props) {
     super(props);
 
@@ -73,7 +73,7 @@ export class ContactInformation extends Component {
     if (didSubmit === null || didSubmit === false) {
       return (
         //Returns the form either the fields are empty or during editing.
-        <div className="w-1/2 h-1/3 flex flex-col p-4">
+        <div className="w-1/2 h-1/3 flex flex-col p-4 ">
           <h1 className="m-2 mr-5 text-xl text-blue-700">
             Contact Information
           </h1>
@@ -137,7 +137,7 @@ export class ContactInformation extends Component {
       );
     } else {
       return (
-        // Returns the output value styled differently.
+        // Returns a div which is the output value styled differently.
         <div className="w-1/2 h-1/3 flex flex-col p-4">
           <h1 className="m-2 mr-5 text-xl  text-blue-700">
             Contact Information
