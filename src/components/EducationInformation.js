@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import Dialog from "@material-ui/core/Dialog";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import Button from "@material-ui/core/Button";
-import { findAllByTestId } from "@testing-library/react";
 
 class EducationInformation extends Component {
   constructor(props) {
@@ -26,11 +24,19 @@ class EducationInformation extends Component {
     });
   };
 
-  handleToClose = () => {
+  handleSubmit = (event) => {
+    let id = "id" + Math.random().toString(16).slice(2);
+    event.preventDefault();
     this.setState({
       open: false,
     });
-    console.log(this.state);
+    this.props.handleEducationInformation({
+      degree: this.state.degree,
+      university: this.state.university,
+      date: this.state.date,
+      description: this.state.description,
+      id,
+    });
   };
 
   handleDegree = (event) => {
@@ -57,8 +63,6 @@ class EducationInformation extends Component {
     });
   };
 
-  handle;
-
   render() {
     return (
       <div>
@@ -76,12 +80,12 @@ class EducationInformation extends Component {
         <div stlye={{}}>
           <Dialog
             open={this.state.open}
-            onClose={this.handleToClose}
+            onClose={this.handleSubmit}
             className="p-2 m-4"
           >
             <DialogTitle>{"Education"}</DialogTitle>
             <DialogContent>
-              <form>
+              <form onSubmit={this.handleSubmit}>
                 <DialogContent>
                   <input
                     type="text"
@@ -117,7 +121,13 @@ class EducationInformation extends Component {
               </form>
             </DialogContent>
             <DialogActions>
-              <Button onClick={this.handleToClose} color="primary" autoFocus>
+              <Button
+                className="hover:animate-pulse"
+                onClick={this.handleSubmit}
+                type="submit"
+                color="primary"
+                autoFocus
+              >
                 Submit
               </Button>
             </DialogActions>

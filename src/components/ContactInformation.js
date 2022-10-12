@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import InputPhoto from "./InputPhoto";
 
 class ContactInformation extends Component {
   constructor(props) {

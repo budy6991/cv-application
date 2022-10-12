@@ -22,6 +22,14 @@ class Manager extends Component {
     console.log(this.state);
   };
 
+  handleEducationInformation = (educationInformation) => {
+    this.setState({
+      educationInformation:
+        this.state.educationInformation.concat(educationInformation),
+    });
+    console.log(this.state);
+  };
+
   render() {
     return (
       <div className="w-2/5 h-full bg-gray-100 shadow-lg p-5 grid grid-cols-2 grid-rows-3">
@@ -30,7 +38,9 @@ class Manager extends Component {
         />
         <InputPhoto className="bg-cover" />
 
-        <EducationInformation />
+        <EducationInformation
+          handleEducationInformation={this.handleEducationInformation}
+        />
       </div>
     );
   }
