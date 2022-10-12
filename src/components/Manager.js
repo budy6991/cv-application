@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ContactInformation from "./ContactInformation";
 import EducationInformation from "./EducationInformation";
 import InputPhoto from "./InputPhoto";
+import DisplayEducation from "./DisplayEducation";
 
 class Manager extends Component {
   constructor(props) {
@@ -41,6 +42,7 @@ class Manager extends Component {
         <EducationInformation
           handleEducationInformation={this.handleEducationInformation}
         />
+        <DisplayEducation education={this.state.educationInformation} />
       </div>
     );
   }
