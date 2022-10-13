@@ -4,6 +4,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import Button from "@material-ui/core/Button";
+import DisplayEducation from "./DisplayEducation";
 
 class EducationInformation extends Component {
   constructor(props) {
@@ -13,7 +14,6 @@ class EducationInformation extends Component {
       degree: "",
       university: "",
       date: "",
-      description: "",
       open: false,
     };
   }
@@ -57,16 +57,13 @@ class EducationInformation extends Component {
     });
   };
 
-  handleDescription = (event) => {
-    this.setState({
-      description: event.target.value,
-    });
-  };
-
   render() {
     return (
       <div>
-        <div className="col-start-1 col-end-2 row-start-2 row-end-3 p-4 flex flex-col">
+        <div
+          className="col-start-1 col-end-2 row-start-2 row-end-3 p-4 flex flex-col overflow-scroll
+        "
+        >
           <div className="flex justify-between">
             <h1 className=" text-xl text-blue-700">Education</h1>
             <button
@@ -110,14 +107,6 @@ class EducationInformation extends Component {
                     onChange={this.handleDate}
                   ></input>
                 </DialogContent>
-                <DialogContent>
-                  <input
-                    type="text"
-                    placeholder="Description"
-                    className="text-center"
-                    onChange={this.handleDescription}
-                  ></input>
-                </DialogContent>
               </form>
             </DialogContent>
             <DialogActions>
@@ -133,6 +122,10 @@ class EducationInformation extends Component {
             </DialogActions>
           </Dialog>
         </div>
+        <DisplayEducation
+          education={this.props.education}
+          handleEdit={this.props.handleEdit}
+        />
       </div>
     );
   }

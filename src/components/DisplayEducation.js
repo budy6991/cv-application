@@ -9,8 +9,9 @@ function DisplayEducation(props) {
         degree={education.degree}
         university={education.university}
         date={education.date}
-        description={education.description}
+        key={education.id}
         id={education.id}
+        handleEdit={props.handleEdit}
       />
     );
   });

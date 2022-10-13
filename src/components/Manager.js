@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import ContactInformation from "./ContactInformation";
 import EducationInformation from "./EducationInformation";
 import InputPhoto from "./InputPhoto";
-import DisplayEducation from "./DisplayEducation";
 
 class Manager extends Component {
   constructor(props) {
@@ -31,6 +30,11 @@ class Manager extends Component {
     console.log(this.state);
   };
 
+  handleEducationEdit = (education) => {
+    console.log(this.state.educationInformation);
+    console.log(education);
+  };
+
   render() {
     return (
       <div className="w-2/5 h-full bg-gray-100 shadow-lg p-5 grid grid-cols-2 grid-rows-3">
@@ -41,17 +45,12 @@ class Manager extends Component {
 
         <EducationInformation
           handleEducationInformation={this.handleEducationInformation}
+          handleEdit={this.handleEducationEdit}
+          education={this.state.educationInformation}
         />
-        <DisplayEducation education={this.state.educationInformation} />
       </div>
     );
   }
 }
 
 export default Manager;
-
-// Now that we have the contact information we need to implement methods for editing it, not removing.
-
-// For the educational experience, the div will be scrollable, so we can add as much experiences as we want.
-
-// Same for the pratical experinece, and implement their methods for edit, etc.
