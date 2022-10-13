@@ -34,7 +34,7 @@ class EducationInformation extends Component {
       degree: this.state.degree,
       university: this.state.university,
       date: this.state.date,
-      description: this.state.description,
+
       id,
     });
   };

@@ -9,8 +9,8 @@ export class EducationCard extends Component {
       newDegree: this.props.degree,
       newUniversity: this.props.university,
       newDate: this.props.date,
-      isHovering: null,
-      isEditing: null,
+      isHovering: false,
+      isEditing: false,
     };
   }
 
@@ -36,7 +36,7 @@ export class EducationCard extends Component {
     this.setState({
       isEditing: false,
     });
-    this.props.handleEdit(this.state);
+    this.props.handleEdit(this.state, this.props.id);
   };
 
   handleDegreeEdit = (event) => {
@@ -93,7 +93,7 @@ export class EducationCard extends Component {
           onMouseOver={this.handleMouseOver}
           onMouseOut={this.handleMouseOut}
         >
-          {this.state.isEditing ? (
+          {this.state.isEditing === true ? (
             <div>
               <input
                 value={this.state.newDegree}
@@ -124,7 +124,7 @@ export class EducationCard extends Component {
               <div className="text-xs text-blue-500">{date}</div>
               <button
                 className="rounded-full bg-white p-1 hover:shadow-md hover:bg-blue-600 hover:text-white text-xs"
-                onClick={this.startEditing}
+                onClick={() => this.startEditing()}
               >
                 Edit
               </button>

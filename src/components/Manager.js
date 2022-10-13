@@ -19,7 +19,6 @@ class Manager extends Component {
       contactInformation:
         this.state.contactInformation.concat(contactInformation),
     });
-    console.log(this.state);
   };
 
   handleEducationInformation = (educationInformation) => {
@@ -27,13 +26,23 @@ class Manager extends Component {
       educationInformation:
         this.state.educationInformation.concat(educationInformation),
     });
-    console.log(this.state);
   };
 
-  handleEducationEdit = (education) => {
-    console.log(this.state.educationInformation);
-    console.log(education);
-  };
+  // handleEducationEdit = (education, id) => {
+  //   this.setState({
+  //     educationInformation: this.state.educationInformation.map(
+  //       (educationCard) => {
+  //         if (educationCard.id === id) {
+  //           education.newDegree = educationCard.degree;
+  //         } else {
+  //           return educationCard;
+  //         }
+  //       }
+  //     ),
+  //   });
+  // };
+
+  //The problem comes to the point of implementing the handleEducationEdit, it creates a conflict in the props of DisplayEducation.
 
   render() {
     return (
