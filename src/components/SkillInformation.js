@@ -4,16 +4,15 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import Button from "@material-ui/core/Button";
-import DisplayExperiece from "./DisplayExperiece";
+import DisplayEducation from "./DisplayEducation";
 
-class PracticalInformation extends Component {
+export class SkillInformation extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      job: "",
-      company: "",
-      date: "",
+      name: "",
+      description: "",
       open: false,
     };
   }
@@ -24,52 +23,44 @@ class PracticalInformation extends Component {
     });
   };
 
-  handleJob = (event) => {
-    this.setState({
-      job: event.target.value,
-    });
-  };
-
-  handleCompany = (event) => {
-    this.setState({
-      company: event.target.value,
-    });
-  };
-
-  handleDate = (event) => {
-    this.setState({
-      date: event.target.value,
-    });
-  };
-
   handleSubmit = (event) => {
     let id = "id" + Math.random().toString(16).slice(2);
     event.preventDefault();
     this.setState({
       open: false,
     });
-    this.props.handlePracticalInformation({
-      job: this.state.job,
-      company: this.state.company,
-      date: this.state.date,
+    this.props.handleEducationInformation({
+      name: this.state.name,
+      description: this.state.description,
       id,
     });
     this.setState({
-      job: "",
-      company: "",
-      date: "",
+      name: "",
+      description: "",
+    });
+  };
+
+  handleName = (event) => {
+    this.setState({
+      name: event.target.value,
+    });
+  };
+
+  handleDescription = (event) => {
+    this.setState({
+      description: event.target.value,
     });
   };
 
   render() {
     return (
       <div
-        className="col-start-1 col-end-2 row-start-3 row-end-4 p-4 flex-col overflow-scroll
-      "
+        className="col-start-2 col-end-3 row-start-2 row-end-4 p-4 flex flex-col overflow-scroll
+          "
       >
         <div>
           <div className="flex justify-between">
-            <h1 className=" text-xl text-blue-700">Experience</h1>
+            <h1 className=" text-xl text-blue-700">Skill Set</h1>
             <button
               className="rounded-full bg-white p-1 hover:shadow-md hover:bg-blue-600 hover:text-white"
               onClick={this.handleClickToOpen}
@@ -90,25 +81,17 @@ class PracticalInformation extends Component {
                 <DialogContent>
                   <input
                     type="text"
-                    placeholder="Job"
+                    placeholder="Degree"
                     className="text-center"
-                    onChange={this.handleJob}
+                    onChange={this.handleName}
                   ></input>
                 </DialogContent>
                 <DialogContent>
                   <input
                     type="text"
-                    placeholder="Company"
+                    placeholder="University"
                     className="text-center"
-                    onChange={this.handleCompany}
-                  ></input>
-                </DialogContent>
-                <DialogContent>
-                  <input
-                    type="text"
-                    placeholder="From-To"
-                    className="text-center"
-                    onChange={this.handleDate}
+                    onChange={this.handleDescription}
                   ></input>
                 </DialogContent>
               </form>
@@ -126,14 +109,9 @@ class PracticalInformation extends Component {
             </DialogActions>
           </Dialog>
         </div>
-        <DisplayExperiece
-          experience={this.props.experience}
-          handleRemove={this.props.handleRemove}
-          handleEdit={this.props.handleEdit}
-        />
       </div>
     );
   }
 }
 
-export default PracticalInformation;
+export default SkillInformation;

@@ -23,24 +23,31 @@ class InputPhoto extends Component {
   render() {
     if (this.state.file === null || this.state.file === "") {
       return (
-        <div className="p-4 bg-white">
-          <input type="file" id="browsePhoto" onChange={this.handleChange} />
-          <img className="bg-contain" src={this.state.file} />
+        <div className="p-4 bg-white relative h-full w-full">
+          <input
+            type="file"
+            id="browsePhoto"
+            onChange={this.handleChange}
+            className="absolute -translate-x-[50%]  left-[50%] -translate-y-[50%] top-[50%] outline-none border-none bg-transparent"
+          />
         </div>
       );
     } else {
       return (
-        <div className="p-4 bg-transparent">
-          <input type="file" onChange={this.handleChange} />
-          <img src={this.state.file} />
-          <div>
-            <button
-              className="rounded-full bg-white p-1 mt-4 hover:shadow-md hover:bg-blue-600 hover:text-white"
-              onClick={this.handleEdit}
-            >
-              Edit
-            </button>
-          </div>
+        <div className="p-4 bg-transparent relative group">
+          <input
+            type="file"
+            onChange={this.handleChange}
+            className="absolute invisible"
+          />
+          <img className="object-cover h-full w-full " src={this.state.file} />
+
+          <button
+            className="rounded-full bg-white p-1 mt-4 hover:shadow-md hover:bg-blue-600 hover:text-white absolute bottom-6 left-6 invisible group-hover:visible"
+            onClick={this.handleEdit}
+          >
+            Edit
+          </button>
         </div>
       );
     }

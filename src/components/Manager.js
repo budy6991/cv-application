@@ -3,6 +3,7 @@ import ContactInformation from "./ContactInformation";
 import EducationInformation from "./EducationInformation";
 import InputPhoto from "./InputPhoto";
 import PracticalInformation from "./PracticalInformation";
+import SkillInformation from "./SkillInformation";
 
 class Manager extends Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class Manager extends Component {
       contactInformation: [],
       educationInformation: [],
       practicalInformation: [],
+      skillInformation: [],
     };
   }
 
@@ -31,8 +33,14 @@ class Manager extends Component {
 
   handlePracticalInformation = (practicalInformation) => {
     this.setState({
-      PracticalInformation:
+      practicalInformation:
         this.state.practicalInformation.concat(practicalInformation),
+    });
+  };
+
+  handleSkillInformation = (skillInformation) => {
+    this.setState({
+      skillInformation: this.state.skillInformation.concat(skillInformation),
     });
   };
 
@@ -51,11 +59,36 @@ class Manager extends Component {
     });
   };
 
+  handleExperienceEdit = (experience, id) => {
+    this.setState({
+      practicalInformation: this.state.practicalInformation.map(
+        (experienceCard) => {
+          if (experienceCard.id === id) {
+            experienceCard.job = experience.newJob;
+            experienceCard.company = experience.newCompany;
+            experienceCard.date = experience.newDate;
+          }
+          return experienceCard;
+        }
+      ),
+    });
+  };
+
   handleEducationRemove = (id) => {
     this.setState({
       educationInformation: this.state.educationInformation.filter(
         (educationCard) => {
           return educationCard.id != id;
+        }
+      ),
+    });
+  };
+
+  handleExperienceRemove = (id) => {
+    this.setState({
+      practicalInformation: this.state.practicalInformation.filter(
+        (experienceCard) => {
+          return experienceCard.id != id;
         }
       ),
     });
@@ -77,7 +110,13 @@ class Manager extends Component {
         />
         <PracticalInformation
           handlePracticalInformation={this.handlePracticalInformation}
+          handleEdit={this.handleExperienceEdit}
+          handleRemove={this.handleExperienceRemove}
           experience={this.state.practicalInformation}
+        />
+
+        <SkillInformation
+          handleSkillInformation={this.handleSkillInformation}
         />
       </div>
     );
