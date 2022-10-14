@@ -28,21 +28,30 @@ class Manager extends Component {
     });
   };
 
-  // handleEducationEdit = (education, id) => {
-  //   this.setState({
-  //     educationInformation: this.state.educationInformation.map(
-  //       (educationCard) => {
-  //         if (educationCard.id === id) {
-  //           education.newDegree = educationCard.degree;
-  //         } else {
-  //           return educationCard;
-  //         }
-  //       }
-  //     ),
-  //   });
-  // };
+  handleEducationEdit = (education, id) => {
+    this.setState({
+      educationInformation: this.state.educationInformation.map(
+        (educationCard) => {
+          if (educationCard.id === id) {
+            educationCard.degree = education.newDegree;
+            educationCard.university = education.newUniversity;
+            educationCard.date = education.newDate;
+          }
+          return educationCard;
+        }
+      ),
+    });
+  };
 
-  //The problem comes to the point of implementing the handleEducationEdit, it creates a conflict in the props of DisplayEducation.
+  handleEducationRemove = (id) => {
+    this.setState({
+      educationInformation: this.state.educationInformation.filter(
+        (educationCard) => {
+          return educationCard.id != id;
+        }
+      ),
+    });
+  };
 
   render() {
     return (
@@ -55,6 +64,7 @@ class Manager extends Component {
         <EducationInformation
           handleEducationInformation={this.handleEducationInformation}
           handleEdit={this.handleEducationEdit}
+          handleRemove={this.handleEducationRemove}
           education={this.state.educationInformation}
         />
       </div>

@@ -128,7 +128,10 @@ export class EducationCard extends Component {
               >
                 Edit
               </button>
-              <button className="rounded-full bg-white p-1 hover:shadow-md hover:bg-red-600 hover:text-white text-xs">
+              <button
+                className="rounded-full bg-white p-1 hover:shadow-md hover:bg-red-600 hover:text-white text-xs"
+                onClick={() => this.props.handleRemove(this.props.id)}
+              >
                 Remove
               </button>
             </div>

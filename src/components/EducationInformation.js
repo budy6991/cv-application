@@ -34,8 +34,12 @@ class EducationInformation extends Component {
       degree: this.state.degree,
       university: this.state.university,
       date: this.state.date,
-
       id,
+    });
+    this.setState({
+      degree: "",
+      university: "",
+      date: "",
     });
   };
 
@@ -125,6 +129,7 @@ class EducationInformation extends Component {
         <DisplayEducation
           education={this.props.education}
           handleEdit={this.props.handleEdit}
+          handleRemove={this.props.handleRemove}
         />
       </div>
     );
