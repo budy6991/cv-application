@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ContactInformation from "./ContactInformation";
 import EducationInformation from "./EducationInformation";
 import InputPhoto from "./InputPhoto";
+import PracticalInformation from "./PracticalInformation";
 
 class Manager extends Component {
   constructor(props) {
@@ -25,6 +26,13 @@ class Manager extends Component {
     this.setState({
       educationInformation:
         this.state.educationInformation.concat(educationInformation),
+    });
+  };
+
+  handlePracticalInformation = (practicalInformation) => {
+    this.setState({
+      PracticalInformation:
+        this.state.practicalInformation.concat(practicalInformation),
     });
   };
 
@@ -66,6 +74,10 @@ class Manager extends Component {
           handleEdit={this.handleEducationEdit}
           handleRemove={this.handleEducationRemove}
           education={this.state.educationInformation}
+        />
+        <PracticalInformation
+          handlePracticalInformation={this.handlePracticalInformation}
+          experience={this.state.practicalInformation}
         />
       </div>
     );

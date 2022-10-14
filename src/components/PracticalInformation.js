@@ -4,15 +4,15 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import Button from "@material-ui/core/Button";
-import DisplayEducation from "./DisplayEducation";
+import DisplayExperiece from "./DisplayExperiece";
 
-class EducationInformation extends Component {
+class PracticalInformation extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      degree: "",
-      university: "",
+      job: "",
+      company: "",
       date: "",
       open: false,
     };
@@ -24,34 +24,15 @@ class EducationInformation extends Component {
     });
   };
 
-  handleSubmit = (event) => {
-    let id = "id" + Math.random().toString(16).slice(2);
-    event.preventDefault();
+  handleJob = (event) => {
     this.setState({
-      open: false,
-    });
-    this.props.handleEducationInformation({
-      degree: this.state.degree,
-      university: this.state.university,
-      date: this.state.date,
-      id,
-    });
-    this.setState({
-      degree: "",
-      university: "",
-      date: "",
+      job: event.target.value,
     });
   };
 
-  handleDegree = (event) => {
+  handleCompany = (event) => {
     this.setState({
-      degree: event.target.value,
-    });
-  };
-
-  handleUniversity = (event) => {
-    this.setState({
-      university: event.target.value,
+      company: event.target.value,
     });
   };
 
@@ -61,15 +42,34 @@ class EducationInformation extends Component {
     });
   };
 
+  handleSubmit = (event) => {
+    let id = "id" + Math.random().toString(16).slice(2);
+    event.preventDefault();
+    this.setState({
+      open: false,
+    });
+    this.props.handlePracticalInformation({
+      job: this.state.job,
+      company: this.state.company,
+      date: this.state.date,
+      id,
+    });
+    this.setState({
+      job: "",
+      company: "",
+      date: "",
+    });
+  };
+
   render() {
     return (
       <div
-        className="col-start-1 col-end-2 row-start-2 row-end-3 p-4 flex flex-col overflow-scroll
+        className="col-start-1 col-end-2 row-start-3 row-end-4 p-4 flex-col overflow-scroll
       "
       >
         <div>
           <div className="flex justify-between">
-            <h1 className=" text-xl text-blue-700">Education</h1>
+            <h1 className=" text-xl text-blue-700">Experience</h1>
             <button
               className="rounded-full bg-white p-1 hover:shadow-md hover:bg-blue-600 hover:text-white"
               onClick={this.handleClickToOpen}
@@ -90,17 +90,17 @@ class EducationInformation extends Component {
                 <DialogContent>
                   <input
                     type="text"
-                    placeholder="Degree"
+                    placeholder="Job"
                     className="text-center"
-                    onChange={this.handleDegree}
+                    onChange={this.handleJob}
                   ></input>
                 </DialogContent>
                 <DialogContent>
                   <input
                     type="text"
-                    placeholder="University"
+                    placeholder="Company"
                     className="text-center"
-                    onChange={this.handleUniversity}
+                    onChange={this.handleCompany}
                   ></input>
                 </DialogContent>
                 <DialogContent>
@@ -126,14 +126,10 @@ class EducationInformation extends Component {
             </DialogActions>
           </Dialog>
         </div>
-        <DisplayEducation
-          education={this.props.education}
-          handleEdit={this.props.handleEdit}
-          handleRemove={this.props.handleRemove}
-        />
+        <DisplayExperiece experience={this.props.practicalInformation} />
       </div>
     );
   }
 }
 
-export default EducationInformation;
+export default PracticalInformation;
