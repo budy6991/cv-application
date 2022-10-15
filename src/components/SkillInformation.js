@@ -4,7 +4,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import Button from "@material-ui/core/Button";
-import DisplayEducation from "./DisplayEducation";
+import DisplaySkillSet from "./DisplaySkillSet";
 
 export class SkillInformation extends Component {
   constructor(props) {
@@ -29,7 +29,7 @@ export class SkillInformation extends Component {
     this.setState({
       open: false,
     });
-    this.props.handleEducationInformation({
+    this.props.handleSkillInformation({
       name: this.state.name,
       description: this.state.description,
       id,
@@ -81,18 +81,18 @@ export class SkillInformation extends Component {
                 <DialogContent>
                   <input
                     type="text"
-                    placeholder="Degree"
+                    placeholder="Skill"
                     className="text-center"
                     onChange={this.handleName}
                   ></input>
                 </DialogContent>
                 <DialogContent>
-                  <input
+                  <textarea
                     type="text"
-                    placeholder="University"
+                    placeholder="Description"
                     className="text-center"
                     onChange={this.handleDescription}
-                  ></input>
+                  ></textarea>
                 </DialogContent>
               </form>
             </DialogContent>
@@ -109,6 +109,11 @@ export class SkillInformation extends Component {
             </DialogActions>
           </Dialog>
         </div>
+        <DisplaySkillSet
+          skillSet={this.props.skillSet}
+          handleEdit={this.props.handleEdit}
+          handleRemove={this.props.handleRemove}
+        />
       </div>
     );
   }

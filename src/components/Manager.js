@@ -74,6 +74,18 @@ class Manager extends Component {
     });
   };
 
+  handleSkillEdit = (skill, id) => {
+    this.setState({
+      skillInformation: this.state.skillInformation.map((skillCard) => {
+        if (skillCard.id === id) {
+          skillCard.name = skill.newName;
+          skillCard.description = skill.newDescription;
+        }
+        return skillCard;
+      }),
+    });
+  };
+
   handleEducationRemove = (id) => {
     this.setState({
       educationInformation: this.state.educationInformation.filter(
@@ -91,6 +103,14 @@ class Manager extends Component {
           return experienceCard.id != id;
         }
       ),
+    });
+  };
+
+  handleSkillRemove = (id) => {
+    this.setState({
+      skillInformation: this.state.skillInformation.filter((skillCard) => {
+        return skillCard.id != id;
+      }),
     });
   };
 
@@ -117,6 +137,9 @@ class Manager extends Component {
 
         <SkillInformation
           handleSkillInformation={this.handleSkillInformation}
+          skillSet={this.state.skillInformation}
+          handleEdit={this.handleSkillEdit}
+          handleRemove={this.handleSkillRemove}
         />
       </div>
     );
