@@ -1,144 +1,105 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
-class ExperienceCard extends Component {
-  constructor(props) {
-    super(props);
+function ExperienceCard({ job, company, date, id, handleEdit, handleRemove }) {
+  const [newJob, setNewJob] = useState(job);
+  const [newCompany, setNewCompany] = useState(company);
+  const [newDate, setNewDate] = useState(date);
+  const [isHovering, setIsHovering] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
-    this.state = {
-      editing: null,
-      newJob: this.props.job,
-      newCompany: this.props.company,
-      newDate: this.props.date,
-      isHovering: false,
-      isEditing: false,
-    };
-  }
-
-  handleMouseOver = () => {
-    this.setState({
-      isHovering: true,
-    });
+  const handleMouseOver = () => {
+    setIsHovering(true);
   };
 
-  handleMouseOut = () => {
-    this.setState({
-      isHovering: false,
-    });
+  const handleMouseOut = () => {
+    setIsHovering(false);
   };
 
-  startEditing = () => {
-    this.setState({
-      isEditing: true,
-    });
+  const startEditing = () => {
+    setIsEditing(true);
   };
 
-  stopEditing = () => {
-    this.setState({
-      isEditing: false,
-    });
-    this.props.handleEdit(this.state, this.props.id);
+  const stopEditing = () => {
+    setIsEditing(false);
+    handleEdit({ newJob, newCompany, newDate }, id);
   };
 
-  handleJobEdit = (event) => {
-    this.setState({
-      newJob: event.target.value,
-    });
+  const handleJobEdit = (event) => {
+    setNewJob(event.target.value);
   };
 
-  handleCompanyEdit = (event) => {
-    this.setState({
-      newCompany: event.target.value,
-    });
+  const handleCompanyEdit = (event) => {
+    setNewCompany(event.target.value);
   };
 
-  handleDateEdit = (event) => {
-    this.setState({
-      newDate: event.target.value,
-    });
+  const handleDateEdit = (event) => {
+    setNewDate(event.target.value);
   };
 
-  showButtons = () => {
+  if (isHovering === null || isHovering === false) {
     return (
-      <div>
-        <button className="rounded-full bg-white p-1 hover:shadow-md hover:bg-blue-600 hover:text-white">
-          Edit
-        </button>
-        <button className="rounded-full bg-white p-1 hover:shadow-md hover:bg-red-600 hover:text-white">
-          Remove
-        </button>
+      <div
+        className=" p-4 flex justify-between bg-white shadow-md shadow-blue-700 rounded-2xl my-2 items-center"
+        onMouseOver={handleMouseOver}
+        onMouseOut={handleMouseOut}
+      >
+        <div className="text-xs font-bold">{job}</div>
+        <div className="text-xs">{company}</div>
+        <div className="text-xs text-blue-500">{date}</div>
       </div>
     );
-  };
-
-  render() {
-    const { job, company, date } = this.props;
-
-    const { isHovering } = this.state;
-    if (isHovering === null || isHovering === false) {
-      return (
-        <div
-          className=" p-4 flex justify-between bg-white shadow-md shadow-blue-700 rounded-2xl my-2 items-center"
-          onMouseOver={this.handleMouseOver}
-          onMouseOut={this.handleMouseOut}
-        >
-          <div className="text-xs font-bold">{job}</div>
-          <div className="text-xs">{company}</div>
-          <div className="text-xs text-blue-500">{date}</div>
-        </div>
-      );
-    } else {
-      return (
-        <div
-          className=" p-4 flex justify-between bg-white shadow-lg shadow-blue-700 rounded-2xl my-2 items-center"
-          onMouseOver={this.handleMouseOver}
-          onMouseOut={this.handleMouseOut}
-        >
-          {this.state.isEditing === true ? (
-            <div>
-              <input
-                value={this.state.newJob}
-                onChange={this.handleJobEdit}
-                className="text-xs font-bold"
-              ></input>
-              <input
-                className="text-xs font-extralight"
-                value={this.state.newCompany}
-                onChange={this.handleCompanyEdit}
-              ></input>
-              <input
-                className="text-xs text-blue-500"
-                value={this.state.newDate}
-                onChange={this.handleDateEdit}
-              ></input>
-              <button
-                className="rounded-full bg-white p-1 hover:shadow-md hover:bg-blue-600 hover:text-white text-xs"
-                onClick={this.stopEditing}
-              >
-                Add
-              </button>
-            </div>
-          ) : (
-            <div>
-              <div className="text-xs font-bold">{job}</div>
-              <div className="text-xs font-extralight">{company}</div>
-              <div className="text-xs text-blue-500">{date}</div>
-              <button
-                className="rounded-full bg-white p-1 hover:shadow-md hover:bg-blue-600 hover:text-white text-xs"
-                onClick={() => this.startEditing()}
-              >
-                Edit
-              </button>
-              <button
-                className="rounded-full bg-white p-1 hover:shadow-md hover:bg-red-600 hover:text-white text-xs"
-                onClick={() => this.props.handleRemove(this.props.id)}
-              >
-                Remove
-              </button>
-            </div>
-          )}
-        </div>
-      );
-    }
+  } else {
+    return (
+      <div
+        className=" p-4 flex justify-between bg-white shadow-lg shadow-blue-700 rounded-2xl my-2 items-center"
+        onMouseOver={handleMouseOver}
+        onMouseOut={handleMouseOut}
+      >
+        {isEditing === true ? (
+          <div>
+            <input
+              value={newJob}
+              onChange={handleJobEdit}
+              className="text-xs font-bold"
+            ></input>
+            <input
+              className="text-xs font-extralight"
+              value={newCompany}
+              onChange={handleCompanyEdit}
+            ></input>
+            <input
+              className="text-xs text-blue-500"
+              value={newDate}
+              onChange={handleDateEdit}
+            ></input>
+            <button
+              className="rounded-full bg-white p-1 hover:shadow-md hover:bg-blue-600 hover:text-white text-xs"
+              onClick={stopEditing}
+            >
+              Add
+            </button>
+          </div>
+        ) : (
+          <div>
+            <div className="text-xs font-bold">{job}</div>
+            <div className="text-xs font-extralight">{company}</div>
+            <div className="text-xs text-blue-500">{date}</div>
+            <button
+              className="rounded-full bg-white p-1 hover:shadow-md hover:bg-blue-600 hover:text-white text-xs"
+              onClick={() => startEditing()}
+            >
+              Edit
+            </button>
+            <button
+              className="rounded-full bg-white p-1 hover:shadow-md hover:bg-red-600 hover:text-white text-xs"
+              onClick={() => handleRemove(id)}
+            >
+              Remove
+            </button>
+          </div>
+        )}
+      </div>
+    );
   }
 }
 
