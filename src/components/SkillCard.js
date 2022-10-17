@@ -1,130 +1,93 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
-export class SkillCard extends Component {
-  constructor(props) {
-    super(props);
+function SkillCard({ name, description, id, handleEdit, handleRemove }) {
+  const [newName, setNewName] = useState(name);
+  const [newDescription, setNewDescription] = useState(description);
+  const [isHovering, setIsHovering] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
-    this.state = {
-      editing: null,
-      newName: this.props.name,
-      newDescription: this.props.description,
-      isHovering: false,
-      isEditing: false,
-    };
-  }
-
-  handleMouseOver = () => {
-    this.setState({
-      isHovering: true,
-    });
+  const handleMouseOver = () => {
+    setIsHovering(true);
   };
 
-  handleMouseOut = () => {
-    this.setState({
-      isHovering: false,
-    });
+  const handleMouseOut = () => {
+    setIsHovering(false);
   };
 
-  startEditing = () => {
-    this.setState({
-      isEditing: true,
-    });
+  const startEditing = () => {
+    setIsEditing(true);
   };
 
-  stopEditing = () => {
-    this.setState({
-      isEditing: false,
-    });
-    this.props.handleEdit(this.state, this.props.id);
+  const stopEditing = () => {
+    setIsEditing(false);
+    handleEdit({ newName, newDescription }, id);
   };
 
-  handleNameEdit = (event) => {
-    this.setState({
-      newName: event.target.value,
-    });
+  const handleNameEdit = (event) => {
+    setNewName(event.target.value);
   };
 
-  handleDescriptionEdit = (event) => {
-    this.setState({
-      newDescription: event.target.value,
-    });
+  const handleDescriptionEdit = (event) => {
+    setNewDescription(event.target.value);
   };
 
-  showButtons = () => {
+  if (isHovering === null || isHovering === false) {
     return (
-      <div>
-        <button className="rounded-full bg-white p-1 hover:shadow-md hover:bg-blue-600 hover:text-white">
-          Edit
-        </button>
-        <button className="rounded-full bg-white p-1 hover:shadow-md hover:bg-red-600 hover:text-white">
-          Remove
-        </button>
+      <div
+        className=" p-4 flex justify-between bg-white shadow-md shadow-blue-700 rounded-2xl my-2 items-center"
+        onMouseOver={handleMouseOver}
+        onMouseOut={handleMouseOut}
+      >
+        <div className="text-xs font-bold">{name}</div>
+        <div className="text-xs font-extralight">{description}</div>
       </div>
     );
-  };
-
-  render() {
-    const { name, description } = this.props;
-
-    const { isHovering } = this.state;
-    if (isHovering === null || isHovering === false) {
-      return (
-        <div
-          className=" p-4 flex justify-between bg-white shadow-md shadow-blue-700 rounded-2xl my-2 items-center"
-          onMouseOver={this.handleMouseOver}
-          onMouseOut={this.handleMouseOut}
-        >
-          <div className="text-xs font-bold">{name}</div>
-          <div className="text-xs font-extralight">{description}</div>
-        </div>
-      );
-    } else {
-      return (
-        <div
-          className=" p-4 flex justify-between bg-white shadow-lg shadow-blue-700 rounded-2xl my-2 items-center"
-          onMouseOver={this.handleMouseOver}
-          onMouseOut={this.handleMouseOut}
-        >
-          {this.state.isEditing === true ? (
-            <div>
-              <input
-                value={this.state.newName}
-                onChange={this.handleNameEdit}
-                className="text-xs font-bold"
-              ></input>
-              <input
-                className="text-xs font-extralight"
-                value={this.state.newDescription}
-                onChange={this.handleDescriptionEdit}
-              ></input>
-              <button
-                className="rounded-full bg-white p-1 hover:shadow-md hover:bg-blue-600 hover:text-white text-xs"
-                onClick={this.stopEditing}
-              >
-                Add
-              </button>
-            </div>
-          ) : (
-            <div>
-              <div className="text-xs font-bold">{name}</div>
-              <div className="text-xs font-extralight">{description}</div>
-              <button
-                className="rounded-full bg-white p-1 hover:shadow-md hover:bg-blue-600 hover:text-white text-xs"
-                onClick={() => this.startEditing()}
-              >
-                Edit
-              </button>
-              <button
-                className="rounded-full bg-white p-1 hover:shadow-md hover:bg-red-600 hover:text-white text-xs"
-                onClick={() => this.props.handleRemove(this.props.id)}
-              >
-                Remove
-              </button>
-            </div>
-          )}
-        </div>
-      );
-    }
+  } else {
+    return (
+      <div
+        className=" p-4 flex justify-between bg-white shadow-lg shadow-blue-700 rounded-2xl my-2 items-center"
+        onMouseOver={handleMouseOver}
+        onMouseOut={handleMouseOut}
+      >
+        {isEditing === true ? (
+          <div>
+            <input
+              value={newName}
+              onChange={handleNameEdit}
+              className="text-xs font-bold"
+            ></input>
+            <input
+              className="text-xs font-extralight"
+              value={newDescription}
+              onChange={handleDescriptionEdit}
+            ></input>
+            <button
+              className="rounded-full bg-white p-1 hover:shadow-md hover:bg-blue-600 hover:text-white text-xs"
+              onClick={stopEditing}
+            >
+              Add
+            </button>
+          </div>
+        ) : (
+          <div>
+            <div className="text-xs font-bold">{name}</div>
+            <div className="text-xs font-extralight">{description}</div>
+            <button
+              className="rounded-full bg-white p-1 hover:shadow-md hover:bg-blue-600 hover:text-white text-xs"
+              onClick={() => startEditing()}
+            >
+              Edit
+            </button>
+            <button
+              className="rounded-full bg-white p-1 hover:shadow-md hover:bg-red-600 hover:text-white text-xs"
+              onClick={() => handleRemove(id)}
+            >
+              Remove
+            </button>
+          </div>
+        )}
+      </div>
+    );
   }
 }
 
