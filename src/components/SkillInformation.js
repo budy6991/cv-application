@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -6,117 +6,100 @@ import DialogContent from "@material-ui/core/DialogContent";
 import Button from "@material-ui/core/Button";
 import DisplaySkillSet from "./DisplaySkillSet";
 
-export class SkillInformation extends Component {
-  constructor(props) {
-    super(props);
+function SkillInformation({
+  handleSkillInformation,
+  handleRemove,
+  handleEdit,
+  skillSet,
+}) {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [open, setOpen] = useState(false);
 
-    this.state = {
-      name: "",
-      description: "",
-      open: false,
-    };
-  }
-
-  handleClickToOpen = () => {
-    this.setState({
-      open: true,
-    });
+  const handleClickToOpen = () => {
+    setOpen(true);
   };
 
-  handleSubmit = (event) => {
+  const handleSubmit = (event) => {
     let id = "id" + Math.random().toString(16).slice(2);
     event.preventDefault();
-    this.setState({
-      open: false,
-    });
-    this.props.handleSkillInformation({
-      name: this.state.name,
-      description: this.state.description,
+    setOpen(false);
+    handleSkillInformation({
+      name: name,
+      description: description,
       id,
     });
-    this.setState({
-      name: "",
-      description: "",
-    });
+    setName("");
+    setDescription("");
   };
 
-  handleName = (event) => {
-    this.setState({
-      name: event.target.value,
-    });
+  const handleName = (event) => {
+    setName(event.target.value);
   };
 
-  handleDescription = (event) => {
-    this.setState({
-      description: event.target.value,
-    });
+  const handleDescription = (event) => {
+    setDescription(event.target.value);
   };
 
-  render() {
-    return (
-      <div
-        className="col-start-2 col-end-3 row-start-2 row-end-4 p-4 flex flex-col overflow-scroll
+  return (
+    <div
+      className="col-start-2 col-end-3 row-start-2 row-end-4 p-4 flex flex-col overflow-scroll
           "
-      >
-        <div>
-          <div className="flex justify-between">
-            <h1 className=" text-xl text-blue-700">Skill Set</h1>
-            <button
-              className="rounded-full bg-white p-1 hover:shadow-md hover:bg-blue-600 hover:text-white"
-              onClick={this.handleClickToOpen}
-            >
-              Add
-            </button>
-          </div>
-        </div>
-        <div stlye={{}}>
-          <Dialog
-            open={this.state.open}
-            onClose={this.handleSubmit}
-            className="p-2 m-4"
+    >
+      <div>
+        <div className="flex justify-between">
+          <h1 className=" text-xl text-blue-700">Skill Set</h1>
+          <button
+            className="rounded-full bg-white p-1 hover:shadow-md hover:bg-blue-600 hover:text-white"
+            onClick={handleClickToOpen}
           >
-            <DialogTitle>{"Education"}</DialogTitle>
-            <DialogContent>
-              <form onSubmit={this.handleSubmit}>
-                <DialogContent>
-                  <input
-                    type="text"
-                    placeholder="Skill"
-                    className="text-center"
-                    onChange={this.handleName}
-                  ></input>
-                </DialogContent>
-                <DialogContent>
-                  <textarea
-                    type="text"
-                    placeholder="Description"
-                    className="text-center"
-                    onChange={this.handleDescription}
-                  ></textarea>
-                </DialogContent>
-              </form>
-            </DialogContent>
-            <DialogActions>
-              <Button
-                className="hover:animate-pulse"
-                onClick={this.handleSubmit}
-                type="submit"
-                color="primary"
-                autoFocus
-              >
-                Submit
-              </Button>
-            </DialogActions>
-          </Dialog>
+            Add
+          </button>
         </div>
-        <DisplaySkillSet
-          skillSet={this.props.skillSet}
-          handleEdit={this.props.handleEdit}
-          handleRemove={this.props.handleRemove}
-        />
       </div>
-    );
-  }
+      <div stlye={{}}>
+        <Dialog open={open} onClose={handleSubmit} className="p-2 m-4">
+          <DialogTitle>{"Education"}</DialogTitle>
+          <DialogContent>
+            <form onSubmit={handleSubmit}>
+              <DialogContent>
+                <input
+                  type="text"
+                  placeholder="Skill"
+                  className="text-center"
+                  onChange={handleName}
+                ></input>
+              </DialogContent>
+              <DialogContent>
+                <textarea
+                  type="text"
+                  placeholder="Description"
+                  className="text-center"
+                  onChange={handleDescription}
+                ></textarea>
+              </DialogContent>
+            </form>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              className="hover:animate-pulse"
+              onClick={handleSubmit}
+              type="submit"
+              color="primary"
+              autoFocus
+            >
+              Submit
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+      <DisplaySkillSet
+        skillSet={skillSet}
+        handleEdit={handleEdit}
+        handleRemove={handleRemove}
+      />
+    </div>
+  );
 }
 
 export default SkillInformation;
