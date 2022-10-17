@@ -1,149 +1,130 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import ContactInformation from "./ContactInformation";
 import EducationInformation from "./EducationInformation";
 import InputPhoto from "./InputPhoto";
 import PracticalInformation from "./PracticalInformation";
 import SkillInformation from "./SkillInformation";
 
-class Manager extends Component {
-  constructor(props) {
-    super(props);
+function Manager() {
+  const [contactInformationArray, setContactInformationArray] = useState([]);
+  const [educationInformationArray, setEducationInformationArray] = useState(
+    []
+  );
+  const [practicalInformationArray, setPracticalInformationArray] = useState(
+    []
+  );
+  const [skillInformationArray, setSkillInformationArray] = useState([]);
 
-    this.state = {
-      contactInformation: [],
-      educationInformation: [],
-      practicalInformation: [],
-      skillInformation: [],
-    };
-  }
-
-  handleContactInformation = (contactInformation) => {
-    this.setState({
-      contactInformation:
-        this.state.contactInformation.concat(contactInformation),
-    });
+  const handleContactInformation = (contactInformation) => {
+    setContactInformationArray(
+      contactInformationArray.concat(contactInformation)
+    );
   };
 
-  handleEducationInformation = (educationInformation) => {
-    this.setState({
-      educationInformation:
-        this.state.educationInformation.concat(educationInformation),
-    });
+  const handleEducationInformation = (educationInformation) => {
+    setEducationInformationArray(
+      educationInformationArray.concat(educationInformation)
+    );
   };
 
-  handlePracticalInformation = (practicalInformation) => {
-    this.setState({
-      practicalInformation:
-        this.state.practicalInformation.concat(practicalInformation),
-    });
+  const handlePracticalInformation = (practicalInformation) => {
+    setPracticalInformationArray(
+      practicalInformationArray.concat(practicalInformation)
+    );
   };
 
-  handleSkillInformation = (skillInformation) => {
-    this.setState({
-      skillInformation: this.state.skillInformation.concat(skillInformation),
-    });
+  const handleSkillInformation = (skillInformation) => {
+    setSkillInformationArray(skillInformationArray.concat(skillInformation));
   };
 
-  handleEducationEdit = (education, id) => {
-    this.setState({
-      educationInformation: this.state.educationInformation.map(
-        (educationCard) => {
-          if (educationCard.id === id) {
-            educationCard.degree = education.newDegree;
-            educationCard.university = education.newUniversity;
-            educationCard.date = education.newDate;
-          }
-          return educationCard;
+  const handleEducationEdit = (education, id) => {
+    setEducationInformationArray(
+      educationInformationArray.map((educationCard) => {
+        if (educationCard.id === id) {
+          educationCard.degree = education.newDegree;
+          educationCard.university = education.newUniversity;
+          educationCard.date = education.newDate;
         }
-      ),
-    });
+        return educationCard;
+      })
+    );
   };
 
-  handleExperienceEdit = (experience, id) => {
-    this.setState({
-      practicalInformation: this.state.practicalInformation.map(
-        (experienceCard) => {
-          if (experienceCard.id === id) {
-            experienceCard.job = experience.newJob;
-            experienceCard.company = experience.newCompany;
-            experienceCard.date = experience.newDate;
-          }
-          return experienceCard;
+  const handleExperienceEdit = (experience, id) => {
+    setPracticalInformationArray(
+      practicalInformationArray.map((experienceCard) => {
+        if (experienceCard.id === id) {
+          experienceCard.job = experience.newJob;
+          experienceCard.company = experience.newCompany;
+          experienceCard.date = experience.newDate;
         }
-      ),
-    });
+        return experienceCard;
+      })
+    );
   };
 
-  handleSkillEdit = (skill, id) => {
-    this.setState({
-      skillInformation: this.state.skillInformation.map((skillCard) => {
+  const handleSkillEdit = (skill, id) => {
+    setSkillInformationArray(
+      skillInformationArray.map((skillCard) => {
         if (skillCard.id === id) {
           skillCard.name = skill.newName;
           skillCard.description = skill.newDescription;
         }
         return skillCard;
-      }),
-    });
-  };
-
-  handleEducationRemove = (id) => {
-    this.setState({
-      educationInformation: this.state.educationInformation.filter(
-        (educationCard) => {
-          return educationCard.id != id;
-        }
-      ),
-    });
-  };
-
-  handleExperienceRemove = (id) => {
-    this.setState({
-      practicalInformation: this.state.practicalInformation.filter(
-        (experienceCard) => {
-          return experienceCard.id != id;
-        }
-      ),
-    });
-  };
-
-  handleSkillRemove = (id) => {
-    this.setState({
-      skillInformation: this.state.skillInformation.filter((skillCard) => {
-        return skillCard.id != id;
-      }),
-    });
-  };
-
-  render() {
-    return (
-      <div className="w-2/5 h-full bg-gray-100 shadow-lg p-5 grid grid-cols-2 grid-rows-3">
-        <ContactInformation
-          handleContactInformation={this.handleContactInformation}
-        />
-        <InputPhoto className="bg-cover" />
-
-        <EducationInformation
-          handleEducationInformation={this.handleEducationInformation}
-          handleEdit={this.handleEducationEdit}
-          handleRemove={this.handleEducationRemove}
-          education={this.state.educationInformation}
-        />
-        <PracticalInformation
-          handlePracticalInformation={this.handlePracticalInformation}
-          handleEdit={this.handleExperienceEdit}
-          handleRemove={this.handleExperienceRemove}
-          experience={this.state.practicalInformation}
-        />
-
-        <SkillInformation
-          handleSkillInformation={this.handleSkillInformation}
-          skillSet={this.state.skillInformation}
-          handleEdit={this.handleSkillEdit}
-          handleRemove={this.handleSkillRemove}
-        />
-      </div>
+      })
     );
-  }
+  };
+
+  const handleEducationRemove = (id) => {
+    setEducationInformationArray(
+      educationInformationArray.filter((educationCard) => {
+        return educationCard.id != id;
+      })
+    );
+  };
+
+  const handleExperienceRemove = (id) => {
+    setPracticalInformationArray(
+      practicalInformationArray.filter((experienceCard) => {
+        return experienceCard.id != id;
+      })
+    );
+  };
+
+  const handleSkillRemove = (id) => {
+    setSkillInformationArray(
+      skillInformationArray.filter((skillCard) => {
+        return skillCard.id != id;
+      })
+    );
+  };
+
+  return (
+    <div className="w-2/5 h-full bg-gray-100 shadow-lg p-5 grid grid-cols-2 grid-rows-3">
+      <ContactInformation handleContactInformation={handleContactInformation} />
+      <InputPhoto className="bg-cover" />
+
+      <EducationInformation
+        handleEducationInformation={handleEducationInformation}
+        handleEdit={handleEducationEdit}
+        handleRemove={handleEducationRemove}
+        education={educationInformationArray}
+      />
+      <PracticalInformation
+        handlePracticalInformation={handlePracticalInformation}
+        handleEdit={handleExperienceEdit}
+        handleRemove={handleExperienceRemove}
+        experience={practicalInformationArray}
+      />
+
+      <SkillInformation
+        handleSkillInformation={handleSkillInformation}
+        skillSet={skillInformationArray}
+        handleEdit={handleSkillEdit}
+        handleRemove={handleSkillRemove}
+      />
+    </div>
+  );
 }
 
 export default Manager;
